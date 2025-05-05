@@ -91,6 +91,8 @@ public class Main {
 			System.out.println("please pick a choice from this list:\n1. to add a book\n2. to remove a book");
 			System.out.println("3. to display all books\n4. to search by title\n 5. to search by author");
 			System.out.println("6. to check out a book\n7. to return a book\n8. to exit");
+			menu = scan.nextInt();
+			if menu 
 		}while(menu != 8);
 
 		
