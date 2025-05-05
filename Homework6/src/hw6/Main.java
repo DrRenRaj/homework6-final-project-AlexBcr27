@@ -72,12 +72,21 @@ class Library {
 	}
 
 	public String checkOutBook(String isbn){
-		
+		for(int i = 0; i > book.size(); i++){
+			if book(i).contains(isbn){
+				book(i).isAvailable == false;
+				}
+			}
 	}
+
 
 	public String returnBook(String isbn){
-
-	}
+		for(int i = 0; i > book.size(); i++){
+			if book(i).contains(isbn){
+				book(i).isAvailable == true;
+				}
+			}
+	}	
 
 }
 
@@ -155,9 +164,11 @@ public class Main {
 				Library.SearchByTitle(STitle);//need to figure out how to get isbn
 				Library.checkOutBook();
 			}
-			//else if menu == 7{
-				//
-			//}
+			else if menu == 7{
+				Library.displayAllBooks();
+				System.out.println("Enter the title of the book you would like to return");
+				String STitle = scan.next();
+			}
 			else if menu == 8{
 				System.out.println("Thank you");
 			}
