@@ -2,10 +2,10 @@ package hw6;
 import java.util.*;
 
 class Book{
-	String title;
-	String author;
-	String isbn;
-	Boolean isAvailable;
+	public String title;
+	public String author;
+	public String isbn;
+	public Boolean isAvailable;
 	
 	public Book(String t, String a, String bn, Boolean isa){
 		title = t;
@@ -38,7 +38,7 @@ class Book{
 class Library {
 	ArrayList<Book> book = new ArrayList<>();
 
-	/*
+	
 	public void addBook(Book book){
 		book.add(book);
 	}
@@ -48,24 +48,36 @@ class Library {
 	}
 
 	public displayAllBooks(){
-	
+		for(int i = 0; i > book.size(); i++){
+			System.out.println(book(i));
+		}
 	}
 
 	public String SearchByTitle(String title){
-		return book.
+		for(int i = 0; i > book.size(); i++){
+			if book(i).contains(title){
+				return book(i);
+			}
+		}
+		return("please check to make sure the title is correct or we do not have this book and please pick a differnt book");
 	}
 
 	public String searchByAuthor(String author){
-		return 
+		for(int i = 0; i > book.size(); i++){
+			if book(i).contains(author){
+				return book(i);
+			}
+		}
+		return("please check to make sure the title is correct or we do not have this book and please pick a differnt book"); 
 	}
 
 	public String checkOutBook(String isbn){
-
+		
 	}
 
 	public String returnBook(String isbn){
 
-	}*/
+	}
 
 }
 
@@ -94,13 +106,13 @@ public class Main {
 			menu = scan.nextInt();
 			if menu == 1{
 				System.out.println("please enter the title of the book");
-				String title = scan.next();
+				String Btitle = scan.next();
 				System.out.println("please enter the author of the book");
-				String author = scan.next();
+				String Bauthor = scan.next();
 				System.out.println("please enter the bin of the book");
-				String bn = scan.next();
+				String Bbn = scan.next();
 				System.out.println("is this book available?");
-				String YN = scan.next();
+				String BYN = scan.next();
 				Boolean avl;
 				if YN.equalsIgnoreCase("yes") OR YN.equalsIgnoreCase("Y"){
 					avl = true;
@@ -137,7 +149,20 @@ public class Main {
 				Library.SearchByAuthor(SAuthor);
 			}
 			else if menu == 6{
+				Library.displayAllBooks();
+				System.out.println("Enter the title of the book you would like to check out");
+				String STitle = scan.next();
+				Library.SearchByTitle(STitle);//need to figure out how to get isbn
+				Library.checkOutBook();
+			}
+			//else if menu == 7{
 				//
+			//}
+			else if menu == 8{
+				System.out.println("Thank you");
+			}
+			else{
+				System.out.println("Try again. Please pick a number from 1 to 8");
 			}
 
 		}while(menu != 8);
