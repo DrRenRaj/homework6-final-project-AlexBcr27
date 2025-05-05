@@ -16,6 +16,8 @@ public class Main {
 		   8. Exit
 
 		 */
+		//edit test
+		System.out.println("Test push");
 	}
 
 }
