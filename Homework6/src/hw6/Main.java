@@ -36,7 +36,7 @@ class Book{
 }
 
 class Library {
-	ArrayList<Book> book;
+	ArrayList<Book> book = new ArrayList<>();
 
 	/*
 	public void addBook(Book book){
@@ -92,8 +92,56 @@ public class Main {
 			System.out.println("3. to display all books\n4. to search by title\n 5. to search by author");
 			System.out.println("6. to check out a book\n7. to return a book\n8. to exit");
 			menu = scan.nextInt();
-			if menu 
+			if menu == 1{
+				System.out.println("please enter the title of the book");
+				String title = scan.next();
+				System.out.println("please enter the author of the book");
+				String author = scan.next();
+				System.out.println("please enter the bin of the book");
+				String bn = scan.next();
+				System.out.println("is this book available?");
+				String YN = scan.next();
+				Boolean avl;
+				if YN.equalsIgnoreCase("yes") OR YN.equalsIgnoreCase("Y"){
+					avl = true;
+				}
+				else if YN.equalsIgnoreCase("no") OR YN.equalsIgnoreCase("N"){
+					avl = false;
+				}
+				//Library.addBook();
+			}
+			else if menu == 2{
+				System.out.println("enter 1 if you know the title of the book you would like to remove");
+				System.out.println("enter 2 if you know the author of the book you would like to remove");
+				int choose = scan.nextInt();
+				if choose == 1{
+					System.out.println("Enter the title of the book would you like to remove?");
+					String remove = scan.next();
+					Book.remove(Library.SearchByTitle(remove));
+				}
+				else if choose == 2{
+					System
+				}
+			}
+			else if menu == 3{
+				Library.displayAllBooks();
+			}
+			else if menu == 4{
+				System.out.println("Enter the title of the book you would like to search");
+				String STitle = scan.next();
+				Library.SearchByTitle(STitle);
+			}
+			else if menu == 5{
+				System.out.println("Enter the author of the book you would like to search");
+				String SAuthor = scan.next();
+				Library.SearchByAuthor(SAuthor);
+			}
+			else if menu == 6{
+				//
+			}
+
 		}while(menu != 8);
+		Scanner.close();
 
 		
 	}
