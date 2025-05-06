@@ -58,7 +58,7 @@ class Library {
 
 	public Book SearchByTitle(String title){
 		for(int i = 0; i < books.size(); i++){
-			if Books(i).equalsIgnoreCase(title){
+			if(books(i).equalsIgnoreCase(title)){
 				return books(i);
 			}
 		}
