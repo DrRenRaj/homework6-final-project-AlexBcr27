@@ -1,5 +1,4 @@
 package hw6;
-import java.time.YearMonth;
 import java.util.*;
 
 class Book{
@@ -72,7 +71,7 @@ class Library {
 
 	public Book searchByAuthor(String author){
 		for(int i = 0; i < books.size(); i++){
-			if(books.get(i).title.equalsIgnoreCase(author)){
+			if(books.get(i).author.equalsIgnoreCase(author)){
 				return books.get(i);
 			}
 		}
@@ -81,8 +80,8 @@ class Library {
 
 	public boolean checkOutBook(String isbn){
 		for(int i = 0; i < books.size(); i++){
-			if books.get(i).isbn.equals(isbn){
-				books.get(i).setAvailable(false);
+			if(books.get(i).isbn.equals(isbn)){
+				books.get(i).SetAvailable(false);
 				return true;
 				}
 			}
@@ -92,7 +91,7 @@ class Library {
 
 	public boolean returnBook(String isbn){
 		for(int i = 0; i < books.size(); i++){
-			if books.get(i).isbn.equals(isbn){
+			if(books.get(i).isbn.equals(isbn)){
 				books.get(i).SetAvailable(true);
 				return true;
 				}
@@ -128,21 +127,22 @@ public class Main {
 			menu = scan.nextInt();
 			if (menu == 1){
 				System.out.println("please enter the title of the book");
-				String Btitle = scan.next();
+				String Btitle = scan.nextLine();
 				System.out.println("please enter the author of the book");
-				String Bauthor = scan.next();
+				String Bauthor = scan.nextLine();
 				System.out.println("please enter the bin of the book");
-				String Bbn = scan.next();
+				String Bbn = scan.nextLine();
 				System.out.println("is this book available?");
-				String BYN = scan.next();
+				String BYN = scan.nextLine();
 				Boolean avl;
-				if(BYN.equals("yes") || BYN.equals("Y")) || BYN.equals("YES") || BYN.equals("Yes") || BYN.equals("y"){
+				if(BYN.equalsIgnoreCase("yes")|| BYN.equalsIgnoreCase("y")){
 					avl = true;
 				}
-				else if(BYN.equals("no") || BYN.equals("N")) || BYN.equals("No") || BYN.equals("NO") || BYN.equals("n"){
+				else{
 					avl = false;
 				}
-				Lib.addBook();
+				Book newBook = new Book(Btitle, Bauthor, Bbn, avl);
+				Lib.addBook(newBook);
 			}
 			else if(menu == 2){
 				System.out.println("enter 1 if you know the title of the book you would like to remove");
@@ -151,12 +151,25 @@ public class Main {
 				if(choose == 1){
 					System.out.println("Enter the title of the book would you like to remove?");
 					String removeT = scan.nextLine();
-					Books.remove(Lib.SearchByTitle(remove));
+					Book b = Lib.SearchByTitle(removeT);
+					if (b != null){
+						Lib.removeBook(b.isbn);
+					}
+					else{
+						System.out.println("Book not found");
+					}
 				}
 				else if(choose == 2){
 					System.out.println("Enter the author of the book you would like to search");
 					String removeA = scan.nextLine();
-					Lib.removeBook(Lib.SearchByAuthorremoveA);
+					Book bo = Lib.searchByAuthor(removeA);
+					if (bo != null){
+						Lib.removeBook(bo.isbn);
+					}
+					else{
+						System.out.println("Book not found");
+					}
+					
 				}
 			}
 			else if (menu == 3){
@@ -170,19 +183,41 @@ public class Main {
 			else if (menu == 5){
 				System.out.println("Enter the author of the book you would like to search");
 				String SAuthor = scan.nextLine();
-				Lib.SearchByAuthor(SAuthor);
+				Lib.searchByAuthor(SAuthor);
 			}
 			else if (menu == 6){
 				Lib.displayAllBooks();
 				System.out.println("Enter the title of the book you would like to check out");
 				String STitle = scan.nextLine();
-				Lib.SearchByTitle(STitle);//need to figure out how to get isbn
-				Lib.checkOutBook();
+				Book Boo = Lib.SearchByTitle(STitle);
+				if (Boo != null){
+					if(Lib.checkOutBook(Boo.isbn)){
+						System.out.println("Book has been checked out");
+					}
+					else{
+						System.out.println("Cant check out book");
+					}
+				}
+				else{
+					System.out.println("Book has not been found");
+				}
 			}
 			else if (menu == 7){
 				Lib.displayAllBooks();
 				System.out.println("Enter the title of the book you would like to return");
 				String STitle = scan.next();
+				Book b = Lib.SearchByTitle(STitle);
+				if (b != null){
+					if(Lib.returnBook(b.isbn)){
+						System.out.println("Book has been returned");
+					}
+					else{
+						System.out.println("Cant return book");
+					}
+				}
+				else{
+					System.out.println("Book has not been found");
+				}
 			}
 			else if (menu == 8){
 				System.out.println("Thank you");
@@ -192,7 +227,7 @@ public class Main {
 			}
 
 		}while(menu != 8);
-		Scanner.close();
+		scan.close();
 
 		
 	}
