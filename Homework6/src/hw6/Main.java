@@ -33,59 +33,66 @@ class Book{
 	public  void SetAvailable(Boolean Avl){
 		isAvailable = Avl;
 	}	
+	public String toString(){
+		return( "Title: " + title + ", Author: " + author + ", ISBN: " + isbn + ", Available: " + isAvailable);
+	}
 }
 
 class Library {
-	ArrayList<Book> book = new ArrayList<>();
+	ArrayList<Book> books = new ArrayList<>();
 
 	
-	public void addBook(Book book){
-		book.add(book);
+	public void addBook(Book b){
+		books.add(b);
 	}
 
 	public void removeBook(String isbn){
-		book.remove(isbn);
+		books.remove(isbn);
 	}
 
-	public displayAllBooks(){
-		for(int i = 0; i > book.size(); i++){
-			System.out.println(book(i));
+	public void displayAllBooks(){
+		for(int i = 0; i < books.size(); i++){
+			System.out.println(books(i));
 		}
 	}
 
-	public String SearchByTitle(String title){
-		for(int i = 0; i > book.size(); i++){
-			if book(i).contains(title){
-				return book(i);
+	public Book SearchByTitle(String title){
+		for(int i = 0; i < books.size(); i++){
+			if Books(i).equalsIgnoreCase(title){
+				return books(i);
 			}
 		}
 		return("please check to make sure the title is correct or we do not have this book and please pick a differnt book");
 	}
 
-	public String searchByAuthor(String author){
-		for(int i = 0; i > book.size(); i++){
-			if book(i).contains(author){
-				return book(i);
+	public Book searchByAuthor(String author){
+		for(int i = 0; i < books.size(); i++){
+			if books(i).equalsIgnoreCase(author){
+				return books(i);
 			}
 		}
 		return("please check to make sure the title is correct or we do not have this book and please pick a differnt book"); 
 	}
 
-	public String checkOutBook(String isbn){
-		for(int i = 0; i > book.size(); i++){
-			if book(i).contains(isbn){
-				book(i).isAvailable == false;
+	public boolean checkOutBook(String isbn){
+		for(int i = 0; i < books.size(); i++){
+			if books(i).equalsIgnoreCase(isbn){
+				books.get(i).setAvailable(false);
+				return(books(i) + "has been checked out");
 				}
 			}
+			return true;
 	}
 
 
-	public String returnBook(String isbn){
-		for(int i = 0; i > book.size(); i++){
-			if book(i).contains(isbn){
-				book(i).isAvailable == true;
+	public boolean returnBook(String isbn){
+		for(int i = 0; i < books.size(); i++){
+			if books(i).equalsIgnoreCase(isbn){
+				books.get(i).setAvailable(true);
+				return(books(i) + " has been returned");
 				}
 			}
+			return false;
 	}	
 
 }
@@ -108,12 +115,13 @@ public class Main {
 		 */
 		int menu = 0;
 		Scanner scan = new Scanner(System.in);
+		Library lib =  new Library();
 		do{
 			System.out.println("please pick a choice from this list:\n1. to add a book\n2. to remove a book");
 			System.out.println("3. to display all books\n4. to search by title\n 5. to search by author");
 			System.out.println("6. to check out a book\n7. to return a book\n8. to exit");
 			menu = scan.nextInt();
-			if menu == 1{
+			if (menu == 1){
 				System.out.println("please enter the title of the book");
 				String Btitle = scan.next();
 				System.out.println("please enter the author of the book");
@@ -123,53 +131,55 @@ public class Main {
 				System.out.println("is this book available?");
 				String BYN = scan.next();
 				Boolean avl;
-				if YN.equalsIgnoreCase("yes") OR YN.equalsIgnoreCase("Y"){
+				if YN.equalsIgnoreCase("yes") || YN.equalsIgnoreCase("Y"){
 					avl = true;
 				}
-				else if YN.equalsIgnoreCase("no") OR YN.equalsIgnoreCase("N"){
+				else if YN.equalsIgnoreCase("no") || YN.equalsIgnoreCase("N"){
 					avl = false;
 				}
-				//Library.addBook();
+				//Lib.addBook();
 			}
-			else if menu == 2{
+			else if(menu == 2){
 				System.out.println("enter 1 if you know the title of the book you would like to remove");
 				System.out.println("enter 2 if you know the author of the book you would like to remove");
 				int choose = scan.nextInt();
 				if choose == 1{
 					System.out.println("Enter the title of the book would you like to remove?");
-					String remove = scan.next();
-					Book.remove(Library.SearchByTitle(remove));
+					String removeT = scan.next();
+					Books.remove(Lib.SearchByTitle(remove));
 				}
 				else if choose == 2{
-					System
+					System.out.println("Enter the author of the book you would like to search");
+					String removeA = scan.next();
+					Books.remove(Lib.SearchByAuthor(removeA));
 				}
 			}
-			else if menu == 3{
-				Library.displayAllBooks();
+			else if (menu == 3){
+				Lib.displayAllBooks();
 			}
-			else if menu == 4{
+			else if (menu == 4){
 				System.out.println("Enter the title of the book you would like to search");
 				String STitle = scan.next();
-				Library.SearchByTitle(STitle);
+				Lib.SearchByTitle(STitle);
 			}
-			else if menu == 5{
+			else if (menu == 5){
 				System.out.println("Enter the author of the book you would like to search");
 				String SAuthor = scan.next();
-				Library.SearchByAuthor(SAuthor);
+				Lib.SearchByAuthor(SAuthor);
 			}
-			else if menu == 6{
-				Library.displayAllBooks();
+			else if (menu == 6){
+				Lib.displayAllBooks();
 				System.out.println("Enter the title of the book you would like to check out");
 				String STitle = scan.next();
-				Library.SearchByTitle(STitle);//need to figure out how to get isbn
-				Library.checkOutBook();
+				Lib.SearchByTitle(STitle);//need to figure out how to get isbn
+				Lib.checkOutBook();
 			}
-			else if menu == 7{
-				Library.displayAllBooks();
+			else if (menu == 7){
+				Lib.displayAllBooks();
 				System.out.println("Enter the title of the book you would like to return");
 				String STitle = scan.next();
 			}
-			else if menu == 8{
+			else if (menu == 8){
 				System.out.println("Thank you");
 			}
 			else{
