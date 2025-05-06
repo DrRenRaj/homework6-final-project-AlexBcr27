@@ -178,20 +178,32 @@ public class Main {
 			else if (menu == 4){
 				System.out.println("Enter the title of the book you would like to search");
 				String STitle = scan.nextLine();
-				Lib.SearchByTitle(STitle);
+				Book b = Lib.SearchByTitle(STitle);
+				if (b != null){
+					System.out.println(b);
+				}
+				else{
+					System.out.println("Book not found");
+				}
 			}
 			else if (menu == 5){
 				System.out.println("Enter the author of the book you would like to search");
 				String SAuthor = scan.nextLine();
-				Lib.searchByAuthor(SAuthor);
+				Book b = Lib.searchByAuthor(SAuthor);
+				if (b != null){
+					System.out.println(b);
+				}
+				else{
+					System.out.println("Book not found");
+				}
 			}
 			else if (menu == 6){
 				Lib.displayAllBooks();
 				System.out.println("Enter the title of the book you would like to check out");
 				String STitle = scan.nextLine();
-				Book Boo = Lib.SearchByTitle(STitle);
-				if (Boo != null){
-					if(Lib.checkOutBook(Boo.isbn)){
+				Book B = Lib.SearchByTitle(STitle);
+				if (B != null){
+					if(Lib.checkOutBook(B.isbn)){
 						System.out.println("Book has been checked out");
 					}
 					else{
