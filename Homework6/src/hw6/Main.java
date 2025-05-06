@@ -1,4 +1,5 @@
 package hw6;
+import java.time.YearMonth;
 import java.util.*;
 
 class Book{
@@ -46,50 +47,54 @@ class Library {
 		books.add(b);
 	}
 
-	public void removeBook(String isbn){
-		books.remove(isbn);
+	public void removeBook(String bn){
+		for( int i = 0; i< books.size();i++){
+			if( books.get(i).isbn.equals(bn)){
+				books.remove(i);
+			}
+		}
 	}
 
 	public void displayAllBooks(){
 		for(int i = 0; i < books.size(); i++){
-			System.out.println(books(i));
+			System.out.println(books.get(i));
 		}
 	}
 
 	public Book SearchByTitle(String title){
 		for(int i = 0; i < books.size(); i++){
-			if(books(i).equalsIgnoreCase(title)){
-				return books(i);
+			if(books.get(i).title.equalsIgnoreCase(title)){
+				return books.get(i);
 			}
 		}
-		return("please check to make sure the title is correct or we do not have this book and please pick a differnt book");
+		return null;
 	}
 
 	public Book searchByAuthor(String author){
 		for(int i = 0; i < books.size(); i++){
-			if books(i).equalsIgnoreCase(author){
-				return books(i);
+			if(books.get(i).title.equalsIgnoreCase(author)){
+				return books.get(i);
 			}
 		}
-		return("please check to make sure the title is correct or we do not have this book and please pick a differnt book"); 
+		return null;
 	}
 
 	public boolean checkOutBook(String isbn){
 		for(int i = 0; i < books.size(); i++){
-			if books(i).equalsIgnoreCase(isbn){
+			if books.get(i).isbn.equals(isbn){
 				books.get(i).setAvailable(false);
-				return(books(i) + "has been checked out");
+				return true;
 				}
 			}
-			return true;
+			return false;
 	}
 
 
 	public boolean returnBook(String isbn){
 		for(int i = 0; i < books.size(); i++){
-			if books(i).equalsIgnoreCase(isbn){
-				books.get(i).setAvailable(true);
-				return(books(i) + " has been returned");
+			if books.get(i).isbn.equals(isbn){
+				books.get(i).SetAvailable(true);
+				return true;
 				}
 			}
 			return false;
@@ -115,7 +120,7 @@ public class Main {
 		 */
 		int menu = 0;
 		Scanner scan = new Scanner(System.in);
-		Library lib =  new Library();
+		Library Lib =  new Library();
 		do{
 			System.out.println("please pick a choice from this list:\n1. to add a book\n2. to remove a book");
 			System.out.println("3. to display all books\n4. to search by title\n 5. to search by author");
@@ -131,27 +136,27 @@ public class Main {
 				System.out.println("is this book available?");
 				String BYN = scan.next();
 				Boolean avl;
-				if YN.equalsIgnoreCase("yes") || YN.equalsIgnoreCase("Y"){
+				if(BYN.equals("yes") || BYN.equals("Y")) || BYN.equals("YES") || BYN.equals("Yes") || BYN.equals("y"){
 					avl = true;
 				}
-				else if YN.equalsIgnoreCase("no") || YN.equalsIgnoreCase("N"){
+				else if(BYN.equals("no") || BYN.equals("N")) || BYN.equals("No") || BYN.equals("NO") || BYN.equals("n"){
 					avl = false;
 				}
-				//Lib.addBook();
+				Lib.addBook();
 			}
 			else if(menu == 2){
 				System.out.println("enter 1 if you know the title of the book you would like to remove");
 				System.out.println("enter 2 if you know the author of the book you would like to remove");
 				int choose = scan.nextInt();
-				if choose == 1{
+				if(choose == 1){
 					System.out.println("Enter the title of the book would you like to remove?");
-					String removeT = scan.next();
+					String removeT = scan.nextLine();
 					Books.remove(Lib.SearchByTitle(remove));
 				}
-				else if choose == 2{
+				else if(choose == 2){
 					System.out.println("Enter the author of the book you would like to search");
-					String removeA = scan.next();
-					Books.remove(Lib.SearchByAuthor(removeA));
+					String removeA = scan.nextLine();
+					Lib.removeBook(Lib.SearchByAuthorremoveA);
 				}
 			}
 			else if (menu == 3){
@@ -159,18 +164,18 @@ public class Main {
 			}
 			else if (menu == 4){
 				System.out.println("Enter the title of the book you would like to search");
-				String STitle = scan.next();
+				String STitle = scan.nextLine();
 				Lib.SearchByTitle(STitle);
 			}
 			else if (menu == 5){
 				System.out.println("Enter the author of the book you would like to search");
-				String SAuthor = scan.next();
+				String SAuthor = scan.nextLine();
 				Lib.SearchByAuthor(SAuthor);
 			}
 			else if (menu == 6){
 				Lib.displayAllBooks();
 				System.out.println("Enter the title of the book you would like to check out");
-				String STitle = scan.next();
+				String STitle = scan.nextLine();
 				Lib.SearchByTitle(STitle);//need to figure out how to get isbn
 				Lib.checkOutBook();
 			}
